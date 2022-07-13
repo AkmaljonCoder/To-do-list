@@ -1,0 +1,18 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Kanit', sans-serif;
+}
+
+body{
+    background-color: #EBEAEF;
+}
+
+ion-icon{
+    color: rgb(89, 173, 89);
+    font-size: 40px;
+    cursor: pointer;
+}
+
+
