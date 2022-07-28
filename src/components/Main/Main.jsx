@@ -18,6 +18,8 @@ const Main = () => {
   const [render, setrender] = useState(false)
   const [open, setOpen] = useState(false);
   const [Value, setValue] = useState('')
+  const [globalid, setglobalid] = useState(-1)
+  
 
   const InpRef = useRef()
   
@@ -25,14 +27,28 @@ const Main = () => {
     if(Value===''){
       alert('write something(')
     }else{
-      TodoData.unshift({
-        work: Value,
-        isdone: false
-      })
-      console.log(TodoData)
-      setValue('')
-      setrender(!render)
+      if(globalid===-1){
+        TodoData.unshift({
+          work: Value,
+          isdone: false
+        })
+        console.log(TodoData)
+        setValue('')
+        setrender(!render)
+      }else{
+        TodoData[globalid].work = Value
+        setrender(!render)
+        setglobalid(-1)
+      }
     }
+  }
+
+  const EditTask = (item,id)=>{
+    setValue(item.work)
+    setglobalid(id)
+    
+
+
   }
   
   function DelTask(i) {
@@ -41,17 +57,17 @@ const Main = () => {
     setOpen(true);
   }
 
-  const EditTask = (item)=>{
-    InpRef.current.value = item.work
-  }
   
-  const HandleCheck = (value) => {
-    console.log(value);
-  }
   
   function delAll(){
     TodoData.length = 0
     setrender(!render)
+  }
+
+  // Snackbar functions
+
+  const HandleCheck = (value) => {
+    console.log(value);
   }
   
   const handleClose = (event, reason) => {
@@ -70,7 +86,12 @@ const Main = () => {
           <SendButton onClick={AddTask} variant='contained'>ADD NEW TASK</SendButton>
        </InputField>
        <TodoField>
-         <TodoTitle>TASKS</TodoTitle>
+        {
+          TodoData.length===0?
+         <TodoTitle style={{display:'none'}}>TASKS</TodoTitle>
+         :
+         <TodoTitle style={{display:'block'}}>TASKS</TodoTitle>
+        }
          {
           TodoData.length===0 ?
           <Nothing>No tasks...</Nothing>
@@ -84,7 +105,7 @@ const Main = () => {
                  </TaskTextField>
                  <TaskButtonsField>
                    <TaskCheck onChange={(e)=>HandleCheck(index)} color='success' />
-                   <TaskButton onClick={()=>EditTask(item)} startIcon={<EditIcon/>} variant='outlined' >EDIT</TaskButton>
+                   <TaskButton onClick={()=>EditTask(item,index)} startIcon={<EditIcon/>} variant='outlined' >EDIT</TaskButton>
                    <TaskButton onClick={()=>DelTask(index)} startIcon={<DeleteIcon/>} color='error' variant='outlined' >DELETE</TaskButton>
                  </TaskButtonsField>
                </TaskDiv>
@@ -103,7 +124,7 @@ const Main = () => {
       
       <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={open} autoHideDuration={3000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-          One task was delete
+          One task has been removed
         </Alert>
       </Snackbar>
 
