@@ -64,6 +64,14 @@ export const TaskDiv = styled.div`
     }
 `
 
+export const Nothing = styled.h1`
+    font-size: 30px;
+    color: black;
+    margin-bottom: 20px;
+    font-weight: 400;
+    margin: 140px 0;
+`
+
 export const TaskTextField = styled.div`
     display: flex;
     justify-content: start;
