@@ -34,11 +34,12 @@ const Main = () => {
         })
         console.log(TodoData)
         setValue('')
-        setrender(!render)
+        // setrender(!render)
       }else{
         TodoData[globalid].work = Value
         setrender(!render)
         setglobalid(-1)
+        setValue('')
       }
     }
   }
@@ -46,9 +47,6 @@ const Main = () => {
   const EditTask = (item,id)=>{
     setValue(item.work)
     setglobalid(id)
-    
-
-
   }
   
   function DelTask(i) {

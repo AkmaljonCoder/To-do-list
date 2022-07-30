@@ -58,7 +58,6 @@ export const TaskDiv = styled.div`
     transition: all ease 0.5s;
     border-radius: 5px;
     &:hover{
-        transform: scale(1.1);
         transition: all ease 0.5s;
         box-shadow: 0px 0px 13px 1px rgba(34, 60, 80, 0.36);
     }
