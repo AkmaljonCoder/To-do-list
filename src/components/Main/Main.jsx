@@ -34,7 +34,7 @@ const Main = () => {
         })
         console.log(TodoData)
         setValue('')
-        // setrender(!render)
+        setrender(!render)
       }else{
         TodoData[globalid].work = Value
         setrender(!render)
@@ -81,15 +81,10 @@ const Main = () => {
     <Content>
        <InputField>
           <SendInput ref={InpRef} value={Value} onChange={(e)=>setValue(e.target.value)} label='new todo' />
-          <SendButton onClick={AddTask} variant='contained'>ADD NEW TASK</SendButton>
+          <SendButton onClick={AddTask} variant='contained'>{globalid===-1?"ADD NEW TASK":"SAVE THE TASK"}</SendButton>
        </InputField>
        <TodoField>
-        {
-          TodoData.length===0?
-         <TodoTitle style={{display:'none'}}>TASKS</TodoTitle>
-         :
-         <TodoTitle style={{display:'block'}}>TASKS</TodoTitle>
-        }
+         <TodoTitle style={{display:TodoData.length===0?'none':'block'}}>TASKS</TodoTitle>
          {
           TodoData.length===0 ?
           <Nothing>No tasks...</Nothing>
@@ -110,12 +105,7 @@ const Main = () => {
              )
            })
          }
-         {
-          TodoData.length > 1?
-         <DelAll style={{display:'block'}} onClick={delAll} color='error' variant='contained' >DALETE ALL TASKS</DelAll>
-         :
-         <DelAll style={{display:'none'}} onClick={delAll} color='error' variant='contained' >DALETE ALL TASKS</DelAll>
-         }
+         <DelAll style={{display:TodoData.length===0?'none':'block'}} onClick={delAll} color='error' variant='contained' >DALETE ALL TASKS</DelAll>
        </TodoField>
 
        <Stack spacing={2} sx={{ width: '100%' }}>
